@@ -23,8 +23,7 @@ const toggle = (productosList) => {
 const renderProductos = () => {
   productsGrid.innerHTML = "";
 
-  let productosList =
-    JSON.parse(localStorage.getItem("list-of-products")) || [];
+  let productosList = JSON.parse(localStorage.getItem("list-of-products")) || [];
 
   productosList.forEach((producto, index) => {
     const price = parseFloat(producto.price);
@@ -32,17 +31,18 @@ const renderProductos = () => {
     const productoCard = document.createElement("div");
     productoCard.classList.add("card");
     productoCard.innerHTML = `
-              <img src="${producto.imagenUrl}" alt="${producto.name}">
-              <div class="card-container--info">
-                  <p>${producto.name}</p>
-                  <div class="card-container--value">
-                      <p>$${price.toFixed(2)}</p>
-                      <img src="./img/delete.png" alt="Eliminar" onclick="deleteProduct(${index})">
-                  </div>
-              </div>
-          `;
+        <img src="${producto.imagenUrl}" alt="${producto.name}">
+        <div class="card-container--info">
+            <p>${producto.name}</p>
+            <div class="card-container--value">
+                <p>$${price.toFixed(2)}</p>
+                <img src="./img/delete.png" alt="Eliminar" onclick="deleteProduct(${index})">
+            </div>
+        </div>
+    `;
     productsGrid.appendChild(productoCard);
   });
+
   toggle(productosList);
 };
 
@@ -60,9 +60,9 @@ newProductForm.addEventListener("submit", (event) => {
 
   const nuevoProducto = { name, price, imagenUrl };
 
-  let productosList =
-    JSON.parse(localStorage.getItem("list-of-products")) || [];
+  let productosList = JSON.parse(localStorage.getItem("list-of-products")) || [];
   productosList.push(nuevoProducto);
+
   localStorage.setItem("list-of-products", JSON.stringify(productosList));
 
   renderProductos();
@@ -72,7 +72,7 @@ newProductForm.addEventListener("submit", (event) => {
 });
 
 deleteFields.addEventListener("click", () => {
-  newProduct.reset();
+  newProductForm.reset();
 });
 
 renderProductos();
